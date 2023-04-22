@@ -64,7 +64,7 @@ function Ising()
 # writing to dat file
     file = open("lattice_eqm.dat", "w")
     for m in 1:length(Time_arr)   
-        @printf(file, "%d\t%.15f\t%.15f\n", Time_arr[m], E_arr[m], M_arr[m])
+        @printf(file, "%d\t%.30f\t%.30f\n", Time_arr[m], E_arr[m], M_arr[m])
     end
     close(file)
 end
