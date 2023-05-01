@@ -1,1 +1,1 @@
-# This is my attempt at simulating the Ising Model using the Julia Programming Language.
+# This is my attempt at simulating the Ising Model using Monte Carlo Methods and Julia Programming Language.
