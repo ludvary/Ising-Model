@@ -102,8 +102,8 @@ function main()
 
 
 
-    function find_average(array)
-        return mean(array) 
+    function find_variance(array)
+        return var(array) 
     end
     
 
@@ -113,8 +113,8 @@ function main()
         LATTICE = do_equillibrium(LATTICE, T) # bringing the lattice at equilibrium at T and storing the lattice config in LATTICE
         E_arr, M_arr = do_simlulation(LATTICE, T) # input that equilibrated lattice and collect data
 
-        AVG_E[i] = find_average(E_arr) # store it here for a particular T
-        AVG_M[i] = find_average(M_arr)
+        AVG_E[i] = find_variance(E_arr/(T^2)) # store it here for a particular T
+        AVG_M[i] = find_variance(M_arr/T)
         T_ARR[i] = T
     end # repeat for all T
 
