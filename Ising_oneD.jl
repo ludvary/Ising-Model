@@ -3,6 +3,7 @@ using Printf
 
 function main()
 
+# defining the constants
     L :: Int16 = 1000
     J :: Float64 = 1
     eqm_steps :: Int64 = 10000
@@ -12,14 +13,15 @@ function main()
     T_step :: Float64 = 0.001
     no_of_T :: Int64 = (T_final - T_init)/T_step
 
+# initializing the arrays for storing data
     Var_E = zeros(Float64, no_of_T)
     Var_M = zeros(Float64, no_of_T)
     Temperature_arr = zeros(Float64, no_of_T)
 
-
+# initializing lattice with random config
     LATTICE = rand([1, -1], L)
 
-    
+# function to find energy  
     function find_energy(lattice)
         E = 0
         for i in 1:L
@@ -28,15 +30,17 @@ function main()
         return E
     end
 
-
+# function for finding magnetization
     function find_magnetization(lattice)
         return sum(lattice)
     end
 
+# function for finding variance
     function find_var(array)
         return var(array)
     end
-    
+
+    # function for carrying out the monte carlo steps (no data is collected)
     function do_eqm(lattice, temperature, J_ising)
 
         E = find_energy(lattice)
@@ -65,6 +69,7 @@ function main()
     end
 
 
+# function for carrying out the monte carlo steps where data is collected in the arrays
     function do_sim(lattice, temperature, J_ising)
 
         E = find_energy(lattice)
@@ -99,6 +104,8 @@ function main()
         end
     end 
 
+
+# this code runs the simulation and calls the appropriate functions
     for i in 1:no_of_T
         T = T_init + i*T_step
         LATTICE = do_eqm(LATTICE, T, J)
@@ -108,9 +115,10 @@ function main()
         Temperature_arr[i] = T
     end
 
+# writing the arrays to the file
     file = open("oneD.dat", "w")
     for i in 1:no_of_T
         @printf(file, "%.15f\t%.15f\t%.15f\n", Temperature_arr[i], Var_E[i], Var_M[i])
     end
 end
-main()
+main() # calling the main function 
